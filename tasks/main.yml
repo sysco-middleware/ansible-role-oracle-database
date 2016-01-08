@@ -1,0 +1,10 @@
+---
+# tasks file for oracle-database
+
+- name: validate oracle database version is supported
+  fail: "msg='version is not valid (supported versions: [11g])'"
+  when: version is defined and version != '11g'
+
+- name: install oracle database 11g
+  include: install-db-11g.yml
+  when: version == '11g'

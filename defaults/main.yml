@@ -1,0 +1,5 @@
+---
+# defaults file for oracle-database
+version: 11g # supported versions: [11g]
+release: 11.2.0.4 # supported releases: [11.2.0.4]
+edition: SE # supported editions: [SE,EE]

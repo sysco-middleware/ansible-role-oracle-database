@@ -1,0 +1,9 @@
+---
+- name: test oracle database 11g (11.2.0.4)
+  hosts: 127.0.0.1
+
+  roles:
+    - role: oracle-database
+      version: 11g
+      release: 11.2.0.4
+      edition: SE
