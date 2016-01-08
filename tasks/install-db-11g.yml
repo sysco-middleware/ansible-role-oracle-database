@@ -1,13 +1,13 @@
 ---
 - name: validate oracle database 11g release is supported
   fail: "msg='release is not valid (supported versions: [11.2.0.4])'"
-  when: release is defined and release != '11.2.0.4'
+  when: oracle_database_release is defined and oracle_database_release != '11.2.0.4'
 
 - name: evaluate oracle database 11g 11.2.0.4 installers
   stat: path="roles/oracle-database/files/{{ item.path }}"
   register: zips_state
-  with_items: "{{ installers_11_2_0_4 }}"
-  when: release == '11.2.0.4'
+  with_items: "{{ oracle_database_installers_11_2_0_4 }}"
+  when: oracle_database_release == '11.2.0.4'
 
 - name: validation results
   debug:
@@ -28,8 +28,8 @@
 
 - name: "unzip installation files"
   unarchive: src="roles/oracle-database/files/{{ item.path }}" dest=/tmp
-  with_items: "{{ installers_11_2_0_4 }}"
-  when: release == '11.2.0.4'
+  with_items: "{{ oracle_database_installers_11_2_0_4 }}"
+  when: oracle_database_release == '11.2.0.4'
 
 - name: install pre-installation package
   yum: name=oracle-rdbms-server-11gR2-preinstall
@@ -40,9 +40,9 @@
     owner: "oracle"
     group: "oinstall"
   with_items:
-    - "{{ inventory_location }}"
-    - "{{ oracle_base }}"
-    - "{{ oracle_home }}"
+    - "{{ oracle_database_inventory_location }}"
+    - "{{ oracle_database_oracle_base }}"
+    - "{{ oracle_database_oracle_home }}"
 
 - name: preparing database installation template
   template: src=db-install-11g.rsp.j2 dest=/tmp/db-install.rsp
@@ -68,6 +68,6 @@
   become: yes
   become_user: "root"
   with_items:
-    - "{{ inventory_location }}/orainstRoot.sh"
-    - "{{ oracle_home }}/root.sh"
+    - "{{ oracle_database_inventory_location }}/orainstRoot.sh"
+    - "{{ oracle_database_oracle_home }}/root.sh"
   when: "'Successfully Setup Software.' in command_result.stdout_lines"

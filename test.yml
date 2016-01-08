@@ -3,7 +3,7 @@
   hosts: 127.0.0.1
 
   roles:
-    - role: oracle-database
-      version: 11g
-      release: 11.2.0.4
-      edition: SE
+    - role: jeqo.oracle-database
+      oracle_database_version: 11g
+      oracle_database_release: 11.2.0.4
+      oracle_database_edition: SE
