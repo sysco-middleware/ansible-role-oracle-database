@@ -3,8 +3,8 @@
 
 - name: validate oracle database version is supported
   fail: "msg='version is not valid (supported versions: [11g])'"
-  when: version is defined and version != '11g'
+  when: oracle_database_version is defined and oracle_database_version != '11g'
 
 - name: install oracle database 11g
   include: install-db-11g.yml
-  when: version == '11g'
+  when: oracle_database_version == '11g'

@@ -1,6 +1,6 @@
 ---
 - name: validate oracle database 11g release is supported
-  fail: "msg='release is not valid (supported versions: [11.2.0.4])'"
+  fail: "msg='{{ oracle_database_release }}release is not valid (supported versions: [11.2.0.4])'"
   when: oracle_database_release is defined and oracle_database_release != '11.2.0.4'
 
 - name: evaluate oracle database 11g 11.2.0.4 installers
@@ -28,8 +28,8 @@
 
 - name: "unzip installation files"
   unarchive: src="roles/oracle-database/files/{{ item.path }}" dest=/tmp
-  with_items: "{{ oracle_database_installers_11_2_0_4 }}"
   when: oracle_database_release == '11.2.0.4'
+  with_items: "{{ oracle_database_installers_11_2_0_4 }}"
 
 - name: install pre-installation package
   yum: name=oracle-rdbms-server-11gR2-preinstall
@@ -70,7 +70,6 @@
   with_items:
     - "{{ oracle_database_inventory_location }}/orainstRoot.sh"
     - "{{ oracle_database_oracle_home }}/root.sh"
-  when: "'Successfully Setup Software.' in command_result.stdout_lines"
 
 - name: set oracle home
   lineinfile:
@@ -78,8 +77,8 @@
    regexp: "^{{ item.start }}"
    line: "{{ item.start }}{{ item.end }}"
    insertbefore: "export PATH"
+  become: yes
+  become_user: "oracle"
   with_items:
    - { start: "ORACLE_HOME=", end: "{{ oracle_database_oracle_home }}" }
    - { start: "PATH=$ORACLE_HOME/bin:", end: "$PATH" }
-  become: true
-  become_user: "{{ ansible_env.USER }}"
