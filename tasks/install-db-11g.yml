@@ -71,3 +71,15 @@
     - "{{ oracle_database_inventory_location }}/orainstRoot.sh"
     - "{{ oracle_database_oracle_home }}/root.sh"
   when: "'Successfully Setup Software.' in command_result.stdout_lines"
+
+- name: set oracle home
+  lineinfile:
+   dest: "/home/oracle/.bash_profile"
+   regexp: "^{{ item.start }}"
+   line: "{{ item.start }}{{ item.end }}"
+   insertbefore: "export PATH"
+  with_items:
+   - { start: "ORACLE_HOME=", end: "{{ oracle_database_oracle_home }}" }
+   - { start: "PATH=$ORACLE_HOME/bin:", end: "$PATH" }
+  become: true
+  become_user: "{{ ansible_env.USER }}"
