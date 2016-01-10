@@ -6,7 +6,7 @@
 
 oracle_database_inventory_location: "/home/oracle/oracle_inventory"
 oracle_database_oracle_base: "/home/oracle/product"
-oracle_database_oracle_home: "{{ oracle_database_oracle_base }}/oracle_database_oracle_home"
+oracle_database_oracle_home: "{{ oracle_database_oracle_base }}/oracle_home"
 
 oracle_database_installers_11_2_0_4:
   - { path: "oracle_database-11.2.0.4-1of2.zip", checksum: "983461d6442b0833630475ec4885278588585651" }
