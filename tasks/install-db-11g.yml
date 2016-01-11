@@ -1,4 +1,7 @@
 ---
+- debug:
+    var: oracle_database_release
+
 - name: validate oracle database 11g release is supported
   fail: "msg='{{ oracle_database_release }}release is not valid (supported versions: [11.2.0.4])'"
   when: oracle_database_release is defined and oracle_database_release != '11.2.0.4'

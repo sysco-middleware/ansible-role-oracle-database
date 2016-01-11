@@ -1,5 +1,7 @@
 ---
 # tasks file for oracle-database
+- debug:
+    var: oracle_database_version
 
 - name: validate oracle database version is supported
   fail: "msg='version is not valid (supported versions: [11g])'"
