@@ -6,9 +6,7 @@ Vagrant.configure(2) do |config|
 
   config.vm.box = "jeqo/oracle-linux-6"
 
-  config.vm.network :private_network, ip: "192.168.56.5"
-
-  config.vm.network "forwarded_port", guest: 1521, host: 1525
+  config.vm.network "forwarded_port", guest: 1521, host: 1511
 
   config.vm.provider "virtualbox" do |vb|
     vb.cpus = 1

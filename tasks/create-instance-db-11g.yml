@@ -43,7 +43,7 @@
   become: yes
   become_user: "oracle"
   with_items:
-   - { start: "ORACLE_SID=", end: "{{ oracle_database_oracle_sid }}" }
+   - { start: "ORACLE_SID=", end: "{{ oracle_database_sid }}" }
 
 - name: add oratab
   template: src=templates/oratab-11g.j2 dest=/etc/oratab owner=oracle group=oinstall

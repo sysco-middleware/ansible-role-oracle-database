@@ -2,6 +2,10 @@
 - name: test create instance oracle database 11g (11.2.0.4)
   hosts: 127.0.0.1
 
+  vars_files:
+    - defaults/main.yml
+    - vars/main.yml
+
   vars:
     # installation variables
     oracle_database_version: 11g # supported versions: [11g]
@@ -22,11 +26,8 @@
     # avoid error in docker related with https://community.oracle.com/thread/2401396
     oracle_database_init_params: JAVA_JIT_ENABLED=FALSE
 
-  vars_files:
-    - defaults/main.yml
-    - vars/main.yml
-
   tasks:
     - include: tasks/main.yml
       tags:
         - install
+        - configure-instance
