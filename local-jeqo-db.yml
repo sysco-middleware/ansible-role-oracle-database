@@ -1,0 +1,11 @@
+---
+- name: Oracle DB 11gR2U4 - Sample DB Instance
+  hosts: 127.0.0.1
+  environment:
+    ORACLE_HOME: "{{ oracle_home }}"
+    ORACLE_SID: "{{ db_sid }}"
+  vars_files:
+    - defaults/main.yml
+  tasks:
+    - include: tasks/create-db-instance.yml
+    - include: tasks/create-db-listener.yml
