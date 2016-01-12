@@ -14,13 +14,14 @@
     - install
 
 - name: configure instance oracle database 11g
-  include: configure-instance-db-11g.yml
+  include: create-instance-db-11g.yml
   when: oracle_database_version == '11g'
   tags:
-    - configure-instance
+    - create-instance
 
-- name: configure listener oracle database 11g
-  include: configure-listener-db-11g.yml
+- name: create listener oracle database 11g
+  include: create-listener-db-11g.yml
   when: oracle_database_version == '11g'
   tags:
-    - configure-listener
+    - create-instance
+    - create-listener

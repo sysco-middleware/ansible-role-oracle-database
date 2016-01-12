@@ -1,0 +1,34 @@
+---
+#
+- name: create dbca response file
+  template: src=dbca-11g.rsp.j2 dest=/tmp/dbca.rsp
+  become: yes
+  become_user: "oracle"
+
+- name: create database instance
+  command: "$ORACLE_HOME/bin/dbca -silent -responseFile /tmp/dbca.rsp"
+  become: yes
+  become_user: "oracle"
+  args:
+    creates: "{{ oracle_home }}/dbs/spfile{{ db_sid }}.ora"
+  register: command_result
+  failed_when: "'100% complete' not in command_result.stdout_lines"
+
+- name: generate upstart script
+  template: src=templates/oradb-11g.conf.j2 dest=/etc/init/oradb.conf
+- name: Enable Service
+  service: name=oradb enabled=yes
+
+- name: set oracle sid
+  lineinfile:
+   dest: "/home/oracle/.bash_profile"
+   regexp: "^{{ item.start }}"
+   line: "{{ item.start }}{{ item.end }}"
+   insertbefore: "export PATH"
+  become: yes
+  become_user: "oracle"
+  with_items:
+   - { start: "ORACLE_SID=", end: "{{ oracle_database_oracle_sid }}" }
+
+- name: add oratab
+  template: src=templates/oratab-11g.j2 dest=/etc/oratab owner={{ db_user }} group={{ db_install_group }}
