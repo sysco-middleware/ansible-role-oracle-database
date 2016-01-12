@@ -1,7 +1,9 @@
 ---
-  - template: src=templates/dbca.rsp.j2 dest=/tmp/dbca.rsp
+  - name: create dbca response file
+    template: src=dbca.rsp.j2 dest=/tmp/dbca.rsp
     become: yes
     become_user: "oracle"
+
   - name: Create Instance
     command: "$ORACLE_HOME/bin/dbca -silent -responseFile /tmp/dbca.rsp"
     become: yes

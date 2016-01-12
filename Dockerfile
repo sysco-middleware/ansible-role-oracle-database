@@ -1,10 +1,10 @@
-FROM jeqo/oracle-database-11g
+FROM jeqo/oracle-linux-6
 
-MAINTAINER Jorge Quilcate <jorge.quilcate@sysco.no>
+MAINTAINER Jorge Quilcate <quilcate.jorge@gmail.com>
 
 ADD playbooks /srv/ansible-playbooks
 WORKDIR /srv/ansible-playbooks
-RUN ansible-playbook local-jeqo-db.yml -c local
+RUN ansible-playbook test-install-oracle-db-11g-ol6.yml -c local
 
 EXPOSE 1521
 CMD ["/bin/bash"]

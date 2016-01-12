@@ -8,3 +8,17 @@
 - name: install oracle database 11g
   include: install-db-11g.yml
   when: version == '11g'
+  tags:
+    - install
+
+- name: configure instance oracle database 11g
+  include: configure-instance-db-11g.yml
+  when: version == '11g'
+  tags:
+    - configure-instance
+
+- name: configure listener oracle database 11g
+  include: configure-listener-db-11g.yml
+  when: version == '11g'
+  tags:
+    - configure-listener
