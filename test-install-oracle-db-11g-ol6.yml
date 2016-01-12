@@ -1,5 +1,5 @@
 ---
-- name: test oracle database 11g (11.2.0.4)
+- name: test install oracle database 11g (11.2.0.4)
   hosts: 127.0.0.1
 
   vars:
@@ -13,3 +13,5 @@
 
   tasks:
     - include: tasks/main.yml
+      tags:
+        - install

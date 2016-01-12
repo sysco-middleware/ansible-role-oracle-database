@@ -7,7 +7,7 @@
   when: oracle_database_release is defined and oracle_database_release != '11.2.0.4'
 
 - name: evaluate oracle database 11g 11.2.0.4 installers
-  stat: path="roles/oracle-database/files/{{ item.path }}"
+  stat: path="files/{{ item.path }}"
   register: zips_state
   with_items: "{{ oracle_database_installers_11_2_0_4 }}"
   when: oracle_database_release == '11.2.0.4'
@@ -30,12 +30,14 @@
   yum: name=unzip state=latest
 
 - name: "unzip installation files"
-  unarchive: src="roles/oracle-database/files/{{ item.path }}" dest=/tmp
+  unarchive: src="files/{{ item.path }}" dest=/tmp
   when: oracle_database_release == '11.2.0.4'
   with_items: "{{ oracle_database_installers_11_2_0_4 }}"
 
 - name: install pre-installation package
   yum: name=oracle-rdbms-server-11gR2-preinstall
+  become: yes
+  become_user: "root"
 
 - file:
     path: "{{ item }}"
@@ -46,6 +48,8 @@
     - "{{ oracle_database_inventory_location }}"
     - "{{ oracle_database_oracle_base }}"
     - "{{ oracle_database_oracle_home }}"
+  become: yes
+  become_user: "oracle"
 
 - name: preparing database installation template
   template: src=db-install-11g.rsp.j2 dest=/tmp/db-install.rsp
@@ -57,6 +61,8 @@
 
 - name: run installer
   shell: "/tmp/database/runInstaller -silent -waitforcompletion -ignoreSysPrereqs -responseFile /tmp/db-install.rsp"
+  args:
+    creates: "{{ oracle_database_oracle_home }}/bin/sqlplus"
   become: yes
   become_user: "oracle"
   register: command_result

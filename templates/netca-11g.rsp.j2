@@ -78,16 +78,16 @@ LISTENER_NUMBER=1
 # The values for listener are:
 # "LISTENER","LISTENER1","LISTENER2","LISTENER3", ...
 # A typical install sets only "LISTENER"
-LISTENER_NAMES={"{{ db_listener_name }}"}
+LISTENER_NAMES={"{{ oracle_database_listener_name }}"}
 
 #LISTENER_PROTOCOLS;StringList;list of listener addresses (protocols and parameters separated by semicolons)
 # The possible values for listener protocols are:
 # "TCP;1521","TCPS;2484","NMP;ORAPIPE","IPC;IPCKEY","VI;1521"
 # A typical install sets only "TCP;1521"
-LISTENER_PROTOCOLS={"TCP;{{ db_listener_port }}"}
+LISTENER_PROTOCOLS={"TCP;{{ oracle_database_listener_port }}"}
 
 #LISTENER_START;String;name of the listener to start, in double quotes
-LISTENER_START=""{{ db_listener_name }}""
+LISTENER_START=""{{ oracle_database_listener_name }}""
 
 #NAMING_METHODS;StringList;list of naming methods
 # The possible values for naming methods are:
@@ -124,4 +124,4 @@ NSN_SERVICE={"PLSExtProc"}
 # The possible values for net service name protocol parameters are:
 # "TCP;HOSTNAME;1521","TCPS;HOSTNAME;2484","NMP;COMPUTERNAME;ORAPIPE","VI;HOSTNAME;1521","IPC;IPCKEY"
 # A typical install sets parameters to "IPC;EXTPROC"
-NSN_PROTOCOLS={"TCP;HOSTNAME;{{ db_listener_port }}"}
+NSN_PROTOCOLS={"TCP;HOSTNAME;{{ oracle_database_listener_port }}"}

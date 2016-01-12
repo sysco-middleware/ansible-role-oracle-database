@@ -7,9 +7,19 @@
   fail: "msg='version is not valid (supported versions: [11g])'"
   when: oracle_database_version is defined and oracle_database_version != '11g'
 
+- name: validate oracle database is installed
+  stat: path="{{ oracle_database_oracle_home }}/bin/sqlplus"
+  register: sqlplus_state
+  become: yes
+  become_user: "root"
+
+- name: sqlplus results
+  debug:
+    var: sqlplus_state
+
 - name: install oracle database 11g
   include: install-db-11g.yml
-  when: oracle_database_version == '11g'
+  when: oracle_database_version == '11g' and (not sqlplus_state.stat.exists or not sqlplus_state.stat.isreg)
   tags:
     - install
 

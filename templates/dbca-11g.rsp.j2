@@ -75,7 +75,7 @@ OPERATION_TYPE = "createDatabase"
 # Default value : None
 # Mandatory     : Yes
 #-----------------------------------------------------------------------------
-GDBNAME = {{ db_global_name }}
+GDBNAME = {{ oracle_database_global_name }}
 
 #-----------------------------------------------------------------------------
 # Name          : RACONENODE
@@ -167,7 +167,7 @@ GDBNAME = {{ db_global_name }}
 # Default value : <db_name> specified in GDBNAME
 # Mandatory     : No
 #-----------------------------------------------------------------------------
-SID = {{ db_sid }}
+SID = {{ oracle_database_sid }}
 
 #-----------------------------------------------------------------------------
 # Name          : NODELIST
@@ -188,7 +188,7 @@ SID = {{ db_sid }}
 # Mandatory     : Yes
 #-----------------------------------------------------------------------------
 #TEMPLATENAME = "General_Purpose.dbc"
-TEMPLATENAME = {{ db_template_name }}
+TEMPLATENAME = {{ oracle_database_template_name }}
 
 #-----------------------------------------------------------------------------
 # Name          : OBFUSCATEDPASSWORDS
@@ -210,7 +210,7 @@ TEMPLATENAME = {{ db_template_name }}
 # Mandatory     : Yes
 #-----------------------------------------------------------------------------
 #SYSPASSWORD = "password"
-SYSPASSWORD = {{ db_admin_password }}
+SYSPASSWORD = {{ oracle_database_admin_password }}
 
 #-----------------------------------------------------------------------------
 # Name          : SYSTEMPASSWORD
@@ -221,7 +221,7 @@ SYSPASSWORD = {{ db_admin_password }}
 # Mandatory     : Yes
 #-----------------------------------------------------------------------------
 #SYSTEMPASSWORD = "password"
-SYSTEMPASSWORD = {{ db_admin_password }}
+SYSTEMPASSWORD = {{ oracle_database_admin_password }}
 
 #-----------------------------------------------------------------------------
 # Name          : EMCONFIGURATION
@@ -506,7 +506,7 @@ CHARACTERSET = "AL32UTF8"
 # Mandatory     : NO
 #-----------------------------------------------------------------------------
 #INITPARAMS =
-INITPARAMS = {{ db_init_params }}
+INITPARAMS = {{ oracle_database_init_params }}
 
 #-----------------------------------------------------------------------------
 # Name          : SAMPLESCHEMA
@@ -526,7 +526,7 @@ INITPARAMS = {{ db_init_params }}
 # Mandatory     : NO
 #-----------------------------------------------------------------------------
 #MEMORYPERCENTAGE = "40"
-MEMORYPERCENTAGE = {{ db_memory_percentage }}
+MEMORYPERCENTAGE = {{ oracle_database_memory_percentage }}
 
 #-----------------------------------------------------------------------------
 # Name          : DATABASETYPE
@@ -537,7 +537,7 @@ MEMORYPERCENTAGE = {{ db_memory_percentage }}
 # Mandatory     : NO
 #-----------------------------------------------------------------------------
 #DATABASETYPE = "MULTIPURPOSE"
-DATABASETYPE = {{ db_type }}
+DATABASETYPE = {{ oracle_database_type }}
 
 #-----------------------------------------------------------------------------
 # Name          : AUTOMATICMEMORYMANAGEMENT
@@ -548,7 +548,7 @@ DATABASETYPE = {{ db_type }}
 # Mandatory     : NO
 #-----------------------------------------------------------------------------
 #AUTOMATICMEMORYMANAGEMENT = "TRUE"
-AUTOMATICMEMORYMANAGEMENT = {{ db_auto_memory_mgnt }}
+AUTOMATICMEMORYMANAGEMENT = {{ oracle_database_auto_memory_mgnt }}
 
 #-----------------------------------------------------------------------------
 # Name          : TOTALMEMORY
@@ -559,7 +559,7 @@ AUTOMATICMEMORYMANAGEMENT = {{ db_auto_memory_mgnt }}
 # Mandatory     : NO
 #-----------------------------------------------------------------------------
 #TOTALMEMORY = "800"
-TOTALMEMORY = {{ db_memory_total }}
+TOTALMEMORY = {{ oracle_database_memory_total }}
 
 #-----------------------*** End of CREATEDATABASE section ***------------------------
 

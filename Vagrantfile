@@ -16,7 +16,7 @@ Vagrant.configure(2) do |config|
   end
 
   config.vm.provision "ansible_local" do |ansible|
-    ansible.playbook = "test-install-oracle-db-11g-ol6.yml"
+    ansible.playbook = "test-create-instance-oracle-db-11g-ol6.yml"
   end
 
 end

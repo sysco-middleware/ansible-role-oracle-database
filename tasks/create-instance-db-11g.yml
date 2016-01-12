@@ -1,23 +1,38 @@
 ---
 #
+- name: evaluate oracle database 11g instance
+  stat: path="{{ oracle_database_oracle_home }}/dbs/spfile{{ oracle_database_sid }}.ora"
+  become: yes
+  become_user: "oracle"
+  register: ora_state
+
+- debug:
+    var: ora_state
+
 - name: create dbca response file
   template: src=dbca-11g.rsp.j2 dest=/tmp/dbca.rsp
   become: yes
   become_user: "oracle"
 
 - name: create database instance
-  command: "$ORACLE_HOME/bin/dbca -silent -responseFile /tmp/dbca.rsp"
+  command: "{{ oracle_database_oracle_home }}/bin/dbca -silent -responseFile /tmp/dbca.rsp"
   become: yes
   become_user: "oracle"
   args:
-    creates: "{{ oracle_home }}/dbs/spfile{{ db_sid }}.ora"
+    creates: "{{ oracle_database_oracle_home }}/dbs/spfile{{ oracle_database_sid }}.ora"
   register: command_result
-  failed_when: "'100% complete' not in command_result.stdout_lines"
+  when: ora_state.stat.exists
+  failed_when: "'100% complete' not in command_result.stdout_lines and not ora_state.stat.exists"
 
 - name: generate upstart script
   template: src=templates/oradb-11g.conf.j2 dest=/etc/init/oradb.conf
+  become: yes
+  become_user: "root"
+
 - name: Enable Service
   service: name=oradb enabled=yes
+  become: yes
+  become_user: "root"
 
 - name: set oracle sid
   lineinfile:
@@ -31,4 +46,6 @@
    - { start: "ORACLE_SID=", end: "{{ oracle_database_oracle_sid }}" }
 
 - name: add oratab
-  template: src=templates/oratab-11g.j2 dest=/etc/oratab owner={{ db_user }} group={{ db_install_group }}
+  template: src=templates/oratab-11g.j2 dest=/etc/oratab owner=oracle group=oinstall
+  become: yes
+  become_user: "root"
