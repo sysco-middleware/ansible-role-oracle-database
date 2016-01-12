@@ -2,8 +2,14 @@
 - name: test oracle database 11g (11.2.0.4)
   hosts: 127.0.0.1
 
-  roles:
-    - role: jeqo.oracle-database
-      oracle_database_version: 11g
-      oracle_database_release: 11.2.0.4
-      oracle_database_edition: SE
+  vars:
+    oracle_database_version: 11g
+    oracle_database_release: 11.2.0.4
+    oracle_database_edition: SE
+
+  vars_files:
+    - defaults/main.yml
+    - vars/main.yml
+
+  tasks:
+    - include: tasks/main.yml
