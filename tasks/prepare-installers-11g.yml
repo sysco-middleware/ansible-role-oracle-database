@@ -33,5 +33,5 @@
   yum: name=unzip state=latest
 
 - name: "unzip installation files"
-  unarchive: src="{{ item.path }}" dest=/tmp
+  unarchive: src="{{ item.path }}" dest=/tmp copy=no
   with_items: "{{ installers }}"
