@@ -1,0 +1,4 @@
+# Install a role from the Ansible Galaxy
+- src: jeqo.oracle-database
+  path: roles/
+  name: oracle-database
