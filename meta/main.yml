@@ -4,21 +4,13 @@ galaxy_info:
   description:
   company: sysco
   license: MIT
-  min_ansible_version: 1.2
+  min_ansible_version: 2.0
 
   platforms:
     - name: EL
       versions:
         - 6
   categories:
+    - database
     - database:sql
 dependencies: []
-
-role_info:
-  versions:
-    - version: 11g
-      releases:
-        - release: 11.2.0.4
-  editions:
-    - SE
-    - EE
