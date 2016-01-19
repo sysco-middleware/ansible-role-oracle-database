@@ -6,38 +6,10 @@
   fail: "msg='{{ oracle_database_release }}release is not valid (supported versions: [11.2.0.4])'"
   when: oracle_database_release is defined and oracle_database_release != '11.2.0.4'
 
-- name: evaluate oracle database 11g 11.2.0.4 installers
-  stat: path="files/{{ item.path }}"
-  register: zips_state
-  with_items: "{{ oracle_database_installers_11_2_0_4 }}"
-  when: oracle_database_release == '11.2.0.4'
-
-- name: validation results
-  debug:
-    var: zips_state
-
-- name: validate installation zips exist
-  fail: msg="installation zip file {{ item.item.path }} is not present"
-  when: not item.stat.exists or not item.stat.isreg
-  with_items: "{{ zips_state.results }}"
-
-- name: validate installation zips checksum
-  fail: msg="installation zip file {{ item.item.path }} is not valid"
-  when: item.stat.checksum != item.item.checksum
-  with_items: "{{ zips_state.results }}"
-
-- name: install the latest version of unzip
-  yum: name=unzip state=latest
-
-- name: "unzip installation files"
-  unarchive: src="files/{{ item.path }}" dest=/tmp
-  when: oracle_database_release == '11.2.0.4'
-  with_items: "{{ oracle_database_installers_11_2_0_4 }}"
+- include: validate-installers-11g.yml
 
 - name: install pre-installation package
   yum: name=oracle-rdbms-server-11gR2-preinstall
-  become: yes
-  become_user: "root"
 
 - file:
     path: "{{ item }}"
@@ -74,8 +46,6 @@
 
 - name: run post-installation scripts as root
   shell: "{{item}}"
-  become: yes
-  become_user: "root"
   with_items:
     - "{{ oracle_database_inventory_location }}/orainstRoot.sh"
     - "{{ oracle_database_oracle_home }}/root.sh"

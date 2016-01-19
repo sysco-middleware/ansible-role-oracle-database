@@ -8,6 +8,5 @@ oracle_database_inventory_location: "/home/oracle/oracle_inventory"
 oracle_database_oracle_base: "/home/oracle/product"
 oracle_database_oracle_home: "{{ oracle_database_oracle_base }}/oracle_home"
 
-oracle_database_installers_11_2_0_4:
-  - { path: "oracle_database-11.2.0.4-1of2.zip", checksum: "983461d6442b0833630475ec4885278588585651" }
-  - { path: "oracle_database-11.2.0.4-2of2.zip", checksum: "2e628d8cac5d1c6fff15e728b1f227747bf2ded8" }
+oracle_database_installers_11_2_0_4_1of2_checksum: 983461d6442b0833630475ec4885278588585651
+oracle_database_installers_11_2_0_4_2of2_checksum: 2e628d8cac5d1c6fff15e728b1f227747bf2ded8

@@ -20,6 +20,8 @@
 - name: install oracle database 11g
   include: install-db-11g.yml
   when: oracle_database_version == '11g' and (not sqlplus_state.stat.exists or not sqlplus_state.stat.isreg)
+  become: yes
+  become_user: "root"
   tags:
     - install
 
