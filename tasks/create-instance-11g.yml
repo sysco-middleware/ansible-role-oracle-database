@@ -21,7 +21,6 @@
   args:
     creates: "{{ oracle_database_oracle_home }}/dbs/spfile{{ oracle_database_sid }}.ora"
   register: command_result
-  when: ora_state.stat.exists
   failed_when: "'100% complete' not in command_result.stdout_lines and not ora_state.stat.exists"
 
 - name: generate upstart script

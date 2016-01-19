@@ -5,7 +5,8 @@ Vagrant.configure(2) do |config|
   ENV['VAGRANT_DEFAULT_PROVIDER'] = 'virtualbox'
 
   config.vm.define "test01" do |test01|
-    test01.vm.box = "jeqo/centos7-ansible"
+    test01.vm.box = "jeqo/ol6-ansible"
+    # test01.vm.box_url = "file:///home/jeqo/boxes/jeqo/ol6-ansible/ol6-ansible.box"
 
     test01.vm.synced_folder "/home/jeqo/oracle/database/installers/11.2.0.4/", "/srv/files"
 

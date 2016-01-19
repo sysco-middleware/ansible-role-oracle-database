@@ -8,18 +8,6 @@
 
 - include: prepare-installers-11g.yml
 
-- set_fact:
-    yum_repo: http://public-yum.oracle.com/public-yum-ol6.repo
-  when: ansible_distribution_major_version == "6"
-
-- set_fact:
-    yum_repo: http://public-yum.oracle.com/public-yum-ol7.repo
-  when: ansible_distribution_major_version == "7"
-
-- get_url:
-    url: "{{ yum_repo }}"
-    dest: /etc/yum.repos.d/public-yum-ol.repo
-
 - name: install pre-installation package
   yum: name=oracle-rdbms-server-11gR2-preinstall
 
