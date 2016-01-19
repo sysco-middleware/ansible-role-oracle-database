@@ -8,6 +8,8 @@
 
 - include: prepare-installers-11g.yml
 
+- get_url: src=http://public-yum.oracle.com/public-yum-ol7.repo dest=/etc/yum.repos.d/public-yum-ol7.repo
+
 - name: install pre-installation package
   yum: name=oracle-rdbms-server-11gR2-preinstall
 
