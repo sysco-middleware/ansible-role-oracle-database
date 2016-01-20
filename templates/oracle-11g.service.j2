@@ -1,0 +1,18 @@
+[Unit]
+Description=Oracle Database Service
+After=syslog.target network.target
+
+[Service]
+LimitMEMLOCK=infinity
+LimitNOFILE=65535
+
+Type=simple
+RemainAfterExit=yes
+User=oracle
+Group=oinstall
+
+ExecStart='{{ oracle_database_oracle_home }}'/bin/dbstart '{{ oracle_database_oracle_home }}'
+ExecStop='{{ oracle_database_oracle_home }}'/bin/dbshut '{{ oracle_database_oracle_home }}'
+
+[Install]
+WantedBy=multi-user.target
