@@ -3,8 +3,6 @@
 - name: evaluate oracle database instance
   stat: path="{{ oracle_database_oracle_home }}/dbs/spfile{{ oracle_database_sid }}.ora"
   register: orafile
-  become: yes
-  become_user: oracle
 
 - debug:
     msg: "an oracle instance is already installed with this sid {{ oracle_database_sid }}"

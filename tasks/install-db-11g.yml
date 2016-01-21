@@ -11,19 +11,19 @@
 - file:
     path: "{{ item }}"
     state: directory
-    owner: "oracle"
-    group: "oinstall"
+    owner: oracle
+    group: oinstall
   with_items:
     - "{{ oracle_database_inventory_location }}"
     - "{{ oracle_database_oracle_base }}"
     - "{{ oracle_database_oracle_home }}"
   become: yes
-  become_user: "oracle"
+  become_user: oracle
 
 - name: preparing database installation template
   template: src=db-install-11g.rsp.j2 dest=/tmp/db-install.rsp
   become: yes
-  become_user: "oracle"
+  become_user: oracle
 
 - name: update required pre-requisites
   shell: "sed -i -e 's/<RUNLEVEL>/<RUNLEVEL SEVERITY=\"IGNORABLE\">/g' /tmp/database/stage/cvu/cvu_prereq.xml"
@@ -33,7 +33,7 @@
   args:
     creates: "{{ oracle_database_oracle_home }}/bin/sqlplus"
   become: yes
-  become_user: "oracle"
+  become_user: oracle
   register: command_result
   failed_when: "'Successfully Setup Software.' not in command_result.stdout_lines"
 
@@ -54,7 +54,7 @@
    line: "{{ item.start }}{{ item.end }}"
    insertbefore: "export PATH"
   become: yes
-  become_user: "oracle"
+  become_user: oracle
   with_items:
    - { start: "ORACLE_HOME=", end: "{{ oracle_database_oracle_home }}" }
    - { start: "PATH=$ORACLE_HOME/bin:", end: "$PATH" }

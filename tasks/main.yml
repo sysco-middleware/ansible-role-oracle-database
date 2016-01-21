@@ -3,16 +3,20 @@
 - name: install oracle database
   include: install-db.yml
   become: yes
-  become_user: "root"
+  become_user: root
   tags:
     - install_database
 
 - name: create listener oracle database 11g
   include: create-listener.yml
+  become: yes
+  become_user: oracle
   tags:
     - create_listener
 
 - name: configure instance oracle database 11g
   include: create-instance.yml
+  become: yes
+  become_user: oracle
   tags:
     - create_instance

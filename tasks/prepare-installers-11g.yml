@@ -10,7 +10,7 @@
         checksum: "{{ oracle_database_installers_11_2_0_4_2of2_checksum }}"
   when: oracle_database_release == '11.2.0.4'
 
-- name: evaluate oracle database 11g {{ oracle_database_release }} installers
+- name: "evaluate oracle database 11g {{ oracle_database_release }} installers"
   stat: path="{{ item.path }}"
   register: zips_state
   with_items: "{{ installers }}"

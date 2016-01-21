@@ -8,7 +8,7 @@
   stat: path="{{ oracle_database_oracle_home }}/bin/sqlplus"
   register: sqlplus
   become: yes
-  become_user: "root"
+  become_user: root
 
 - debug:
     msg: "oracle database is already installed in this {{ oracle_database_oracle_home }}"
