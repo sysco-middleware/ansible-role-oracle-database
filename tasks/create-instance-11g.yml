@@ -24,10 +24,10 @@
   tags:
     - configure_service
 
- - name: add oratab
-   template: src=templates/oratab-11g.j2 dest=/etc/oratab owner=oracle group=oinstall
-   become: yes
-   become_user: root
+- name: add oratab
+  template: src=templates/oratab-11g.j2 dest=/etc/oratab owner=oracle group=oinstall
+  become: yes
+  become_user: root
 
 - name: set oracle sid
   lineinfile:
