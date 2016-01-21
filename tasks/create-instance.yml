@@ -4,11 +4,11 @@
   stat: path="{{ oracle_database_oracle_home }}/dbs/spfile{{ oracle_database_sid }}.ora"
   register: orafile
   become: yes
-  become_user: "oracle"
+  become_user: oracle
 
 - debug:
     msg: "an oracle instance is already installed with this sid {{ oracle_database_sid }}"
-  when: ora_state.stat.exists
+  when: orafile.stat.exists
 
 - include: create-instance-11g.yml
-  when: not ora_state.stat.exists and oracle_database_version == '11g'
+  when: not orafile.stat.exists and oracle_database_version == '11g'
