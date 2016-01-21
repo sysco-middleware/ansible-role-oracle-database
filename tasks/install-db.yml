@@ -1,8 +1,5 @@
 ---
 #
-- debug:
-    var: oracle_database_version
-
 - name: validate oracle database version is supported
   fail: "msg='version is not valid (supported versions: [11g])'"
   when: oracle_database_version is defined and oracle_database_version != '11g'
@@ -14,7 +11,7 @@
   become_user: "root"
 
 - debug:
-    message: "oracle database is already installed in this {{ oracle_database_oracle_home }}"
+    msg: "oracle database is already installed in this {{ oracle_database_oracle_home }}"
   when: sqlplus.stat.exists
 
 - include: install-db-11g.yml
