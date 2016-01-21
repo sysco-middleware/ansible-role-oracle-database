@@ -1,47 +1,18 @@
 ---
 # tasks file for oracle-database
-- debug:
-    var: oracle_database_version
-  tags:
-    - always
-
-- name: validate oracle database version is supported
-  fail: "msg='version is not valid (supported versions: [11g])'"
-  when: oracle_database_version is defined and oracle_database_version != '11g'
-  tags:
-    - always
-
-- name: validate oracle database is installed
-  stat: path="{{ oracle_database_oracle_home }}/bin/sqlplus"
-  register: sqlplus_state
-  become: yes
-  become_user: "root"
-  tags:
-    - always
-
-- name: sqlplus results
-  debug:
-    var: sqlplus_state
-  tags:
-    - always
-
-- name: install oracle database 11g
-  include: install-db-11g.yml
-  when: oracle_database_version == '11g' and (not sqlplus_state.stat.exists or not sqlplus_state.stat.isreg)
+- name: install oracle database
+  include: install-db.yml
   become: yes
   become_user: "root"
   tags:
     - install
 
-- name: configure instance oracle database 11g
-  include: create-instance-11g.yml
-  when: oracle_database_version == '11g'
-  tags:
-    - create_instance
-
 - name: create listener oracle database 11g
-  include: create-listener-11g.yml
-  when: oracle_database_version == '11g'
+  include: create-listener.yml
   tags:
-    - create_instance
-    - create_listener
+    - listener
+
+- name: configure instance oracle database 11g
+  include: create-instance.yml
+  tags:
+    - instance

@@ -1,14 +1,5 @@
 ---
 #
-- name: evaluate oracle database 11g instance
-  stat: path="{{ oracle_database_oracle_home }}/dbs/spfile{{ oracle_database_sid }}.ora"
-  become: yes
-  become_user: "oracle"
-  register: ora_state
-
-- debug:
-    var: ora_state
-
 - name: create dbca response file
   template: src=dbca-11g.rsp.j2 dest=/tmp/dbca.rsp
   become: yes
@@ -21,7 +12,7 @@
   args:
     creates: "{{ oracle_database_oracle_home }}/dbs/spfile{{ oracle_database_sid }}.ora"
   register: command_result
-  failed_when: "'100% complete' not in command_result.stdout_lines and not ora_state.stat.exists"
+  failed_when: "'100% complete' not in command_result.stdout_lines"
 
 - name: generate upstart script
   template: src=templates/oracle-11g.service.j2 dest=/etc/systemd/system/oracle-11g.service
