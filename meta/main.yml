@@ -17,7 +17,7 @@ galaxy_info:
     - database:sql
 
   galaxy_tags:
-  - install
-  - instance
-  - listener
+  - install_database
+  - create_listener
+  - create_instance
 dependencies: []

@@ -5,14 +5,14 @@
   become: yes
   become_user: "root"
   tags:
-    - install
+    - install_database
 
 - name: create listener oracle database 11g
   include: create-listener.yml
   tags:
-    - listener
+    - create_listener
 
 - name: configure instance oracle database 11g
   include: create-instance.yml
   tags:
-    - instance
+    - create_instance
