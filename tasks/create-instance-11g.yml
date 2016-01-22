@@ -11,7 +11,9 @@
   failed_when: "'100% complete' not in command_result.stdout_lines"
 
 - name: define service
-  template: src=templates/oracle-11g.service.j2 dest=/etc/systemd/system/oracle-11g.service
+  template:
+    src: oracle-11g.service.j2
+    dest: /etc/systemd/system/oracle-11g.service
   become: yes
   become_user: root
   tags:
@@ -25,7 +27,11 @@
     - configure_service
 
 - name: add oratab
-  template: src=templates/oratab-11g.j2 dest=/etc/oratab owner=oracle group=oinstall
+  template:
+    src: oratab-11g.j2
+    dest: /etc/oratab
+    owner: oracle
+    group: oinstall
   become: yes
   become_user: root
 
