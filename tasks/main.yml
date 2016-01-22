@@ -7,16 +7,23 @@
   tags:
     - install_database
 
-- name: create listener oracle database 11g
+- name: create listener oracle database
   include: create-listener.yml
   become: yes
   become_user: oracle
   tags:
     - create_listener
 
-- name: configure instance oracle database 11g
+- name: configure instance oracle database
   include: create-instance.yml
   become: yes
   become_user: oracle
   tags:
     - create_instance
+
+- name: configure instance service
+  include: configure-instances-service.yml
+  become: yes
+  become_user: root
+  tags:
+    - configure_service
