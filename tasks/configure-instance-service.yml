@@ -1,5 +1,5 @@
 ---
 #
 
-- include: configure-instances-service-11g.yml
+- include: configure-instance-service-11g.yml
   when: oracle_database_version == '11g'

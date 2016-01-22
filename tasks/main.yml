@@ -22,7 +22,7 @@
     - createinstance
 
 - name: configure instance service
-  include: configure-instances-service.yml
+  include: configure-instance-service.yml
   become: yes
   become_user: root
   tags:
