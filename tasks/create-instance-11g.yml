@@ -26,4 +26,10 @@
    line: "{{ item.start }}{{ item.end }}"
    insertbefore: "export PATH"
   with_items:
-   - { start: "ORACLE_SID=", end: "{{ oracle_database_sid }}" }
+   -
+     start: "ORACLE_SID="
+     end: "{{ oracle_database_sid }}"
+
+   -
+     start: "export ORACLE_SID"
+     end: ""

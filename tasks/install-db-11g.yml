@@ -56,5 +56,12 @@
   become: yes
   become_user: oracle
   with_items:
-   - { start: "ORACLE_HOME=", end: "{{ oracle_database_oracle_home }}" }
-   - { start: "PATH=$ORACLE_HOME/bin:", end: "$PATH" }
+    -
+      start: "ORACLE_HOME="
+      end: "{{ oracle_database_oracle_home }}"
+    -
+      start: "PATH=$ORACLE_HOME/bin:"
+      end: "$PATH"
+    -
+      start: "export ORACLE_HOME"
+      end: ""
