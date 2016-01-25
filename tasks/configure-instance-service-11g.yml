@@ -5,7 +5,7 @@
 
 - name: define service
   template:
-    src: oracle-11g.service.j2
+    src: oracle-database-11g.service.j2
     dest: /etc/systemd/system/{{ service_name }}.service
 
 - name: enable service
