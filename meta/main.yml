@@ -1,7 +1,8 @@
 ---
 galaxy_info:
-  author: jeqo (quilcate.jorge@gmail.com)
-  description: oracle database role to install database software and create and configure instances and listeners.
+  author: Jorge Quilcate
+  description: Ansible Role to install Oracle Database software and create and configure instances and listeners.
+  company: Sysco AS
 
   license: MIT
 
