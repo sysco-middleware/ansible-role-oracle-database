@@ -3,9 +3,11 @@
 - include: validate.yml
 
 - include: prepare-OracleLinux.yml
+  become: yes
   when: ansible_distribution == 'OracleLinux'
 
 - include: prepare.yml
+  become: yes
   when: ansible_distribution != 'OracleLinux'
 
 #- name: install oracle database
