@@ -18,27 +18,19 @@
   debug:
     var: command_result
 
-- name: run post-installation scripts as root
-  shell: "{{item}}"
-  with_items:
-    - "{{ oracle_database_inventory_location }}/orainstRoot.sh"
-    - "{{ oracle_database_oracle_home }}/root.sh"
-
 - name: set oracle home
   lineinfile:
    dest: "/home/oracle/.bash_profile"
-   regexp: "^{{ item.start }}"
-   line: "{{ item.start }}{{ item.end }}"
+   regexp: "{{ item.regexp }}"
+   line: "{{ item.line }}"
    insertbefore: "export PATH"
-  become: yes
-  become_user: oracle
   with_items:
     -
-      start: "ORACLE_HOME="
-      end: "{{ oracle_database_oracle_home }}"
+      regexp: ^ORACLE_HOME=
+      line: "ORACLE_HOME={{ oracle_database_oracle_home }}"
     -
-      start: "PATH=$ORACLE_HOME/bin:"
-      end: "$PATH"
+      regexp: PATH=\$ORACLE_HOME/bin
+      line: PATH=$ORACLE_HOME/bin:$PATH
     -
-      start: "export ORACLE_HOME"
-      end: ""
+      regexp: ^export ORACLE_HOME
+      line: export ORACLE_HOME

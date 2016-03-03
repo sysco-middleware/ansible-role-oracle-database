@@ -17,22 +17,7 @@
   become_user: "{{ oracle_database_user }}"
   when: not oracle_database_already_installed
 
-#- name: create listener oracle database
-#  include: configure-listener.yml
-#  become: yes
-#  become_user: "{{ oracle_database_user }}"
-#  tags:
-#    - listener
-
-#- name: configure instance oracle database
-#  include: configure-instance.yml
-#  become: yes
-#  become_user: "{{ oracle_database_user }}"
-#  tags:
-#    - instance
-
-#- name: configure instance service
-#  include: configure-instance-service.yml
-#  become: yes
-#  tags:
-#    - configureservice
+- name: post-install scripts as root
+  include: postinstall-{{ oracle_database_version }}.yml
+  become: yes
+  become_user: root
