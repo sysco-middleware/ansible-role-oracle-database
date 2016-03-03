@@ -1,29 +1,6 @@
 ---
-- name: validate oracle database 11g release is supported
-  fail: "msg='{{ oracle_database_release }}release is not valid (supported versions: [11.2.0.4])'"
-  when: oracle_database_release is defined and oracle_database_release != '11.2.0.4'
-
-- include: prepare-installers-11g.yml
-
-- name: install pre-installation package
-  yum: name=oracle-rdbms-server-11gR2-preinstall
-
-- file:
-    path: "{{ item }}"
-    state: directory
-    owner: oracle
-    group: oinstall
-  with_items:
-    - "{{ oracle_database_inventory_location }}"
-    - "{{ oracle_database_oracle_base }}"
-    - "{{ oracle_database_oracle_home }}"
-  become: yes
-  become_user: oracle
-
 - name: preparing database installation template
   template: src=db-install-11g.rsp.j2 dest=/tmp/db-install.rsp
-  become: yes
-  become_user: oracle
 
 - name: update required pre-requisites
   shell: "sed -i -e 's/<RUNLEVEL>/<RUNLEVEL SEVERITY=\"IGNORABLE\">/g' /tmp/database/stage/cvu/cvu_prereq.xml"

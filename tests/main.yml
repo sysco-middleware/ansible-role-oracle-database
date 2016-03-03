@@ -1,7 +1,14 @@
 ---
 - name: test create instance oracle database 11g (11.2.0.4)
   hosts: test01
-  roles:
+  roles:    
+    - role: nfs
+      nfs_mode: client
+      nfs_client_imports:
+        -
+          local: /srv/files
+          remote: /installers/oracle/db/11.2/database/11.2.0.4
+          server_host: 10.0.0.1
     - role: oracle-database
       # installation variables
       oracle_database_version: 11g # supported versions: [11g]

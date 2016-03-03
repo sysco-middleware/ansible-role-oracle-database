@@ -3,10 +3,7 @@
 ENV['VAGRANT_DEFAULT_PROVIDER'] = 'virtualbox'
 
 Vagrant.configure(2) do |config|
-
-  config.vm.synced_folder '.', '/vagrant', nfs: true
-  config.vm.synced_folder "/installers/oracle/db/11.2/database/11.2.0.4/", "/srv/files", nfs: true
-  config.vm.network "forwarded_port", guest: 1521, host: 15021
+  config.vm.network "private_network", ip: "10.0.0.5"
 
   config.vm.provider "virtualbox" do |vb|
     vb.cpus = 1
