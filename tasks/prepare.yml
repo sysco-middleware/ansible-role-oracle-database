@@ -1,6 +1,6 @@
 ---
 # ==> Configure Linux
-- include_vars: "oracle-database-{{ oracle_database_version }}"
+- include_vars: "oracle-database-{{ oracle_database_version }}.yml"
 
 - name: Install required libraries
   yum: name={{ item }} state=present

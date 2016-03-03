@@ -5,8 +5,7 @@ oracle_database_version: 11g # supported versions: [11g]
 oracle_database_release: 11.2.0.4 # supported releases: [11.2.0.4]
 oracle_database_edition: SE # supported editions: [SE,EE]
 # installers
-oracle_database_installers_11_2_0_4_1of2: files/oracle_database-11.2.0.4-1of2.zip
-oracle_database_installers_11_2_0_4_2of2: files/oracle_database-11.2.0.4-2of2.zip
+oracle_database_installer: path
 # instance variables
 oracle_database_sid: #SAMPLEDB
 oracle_database_global_name: #SAMPLEDB
