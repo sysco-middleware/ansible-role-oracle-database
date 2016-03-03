@@ -25,7 +25,7 @@
   with_items: "{{ oracle_database_extra_groups }}"
 
 - name: Create user
-  user: name={{ oracle_database_user }} group={{ oracle_database_install_group }} password={{ oracle_database_password }}
+  user: name={{ oracle_database_user }} group={{ oracle_database_install_group }}
 
 - name: Add extra groups
   user: name={{ oracle_database_user }} groups={{ item }} append=yes
@@ -46,7 +46,7 @@
 
 # ==> Create Base directories
 - name: Create Oracle Base directory
-  file: state=directory path={{ oracle_database_base }} owner={{ oracle_database_user }} group={{ oracle_database_install_group }}
+  file: state=directory path={{ oracle_database_oracle_base }} owner={{ oracle_database_user }} group={{ oracle_database_install_group }}
 
 # ==> Disable transparent hugepages
 #- name: Copy script
