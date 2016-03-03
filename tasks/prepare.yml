@@ -10,7 +10,9 @@
   selinux: state=disabled
 
 - name: Disable Firewall Deamon (firewalld)
-  service: name=firewalld state=stopped enabled=no
+  service: name=firewalld state=stopped enabled=no  
+  ignore_errors: yes
+
 
 - name: Change kernel parameters
   sysctl: name="{{ item.key }}" value="{{ item.value }}" state=present

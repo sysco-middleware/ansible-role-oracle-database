@@ -12,7 +12,6 @@ Role Variables
 --------------
 
 - **oracle_database_version**: 11g # supported versions: [11g]
-- **oracle_database_release**: 11.2.0.4 # supported releases: [11.2.0.4]
 - **oracle_database_edition**: SE # supported editions: [SE,EE]
 
 Dependencies

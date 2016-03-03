@@ -2,20 +2,6 @@
 # defaults file for oracle-database
 # installation variables
 oracle_database_version: 11g # supported versions: [11g]
-oracle_database_release: 11.2.0.4 # supported releases: [11.2.0.4]
 oracle_database_edition: SE # supported editions: [SE,EE]
 # installers
 oracle_database_installer_directory: /srv/files/database
-# instance variables
-oracle_database_sid: #SAMPLEDB
-oracle_database_global_name: #SAMPLEDB
-oracle_database_template_name: #General_Purpose.dbc
-oracle_database_admin_password: #welcome1
-oracle_database_auto_memory_mgnt: #TRUE
-oracle_database_memory_percentage: 80
-oracle_database_memory_total: 1024
-oracle_database_type: #MULTIPURPOSE
-# listener variables
-oracle_database_listener_name: #LISTENER
-oracle_database_listener_port: #1521
-oracle_database_init_params: #JAVA_JIT_ENABLED=FALSE
