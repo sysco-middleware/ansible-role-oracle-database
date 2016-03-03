@@ -3,10 +3,10 @@
   template: src=db-install-11g.rsp.j2 dest=/tmp/db-install.rsp
 
 - name: update required pre-requisites
-  shell: "sed -i -e 's/<RUNLEVEL>/<RUNLEVEL SEVERITY=\"IGNORABLE\">/g' /tmp/database/stage/cvu/cvu_prereq.xml"
+  shell: "sed -i -e 's/<RUNLEVEL>/<RUNLEVEL SEVERITY=\"IGNORABLE\">/g' {{ oracle_database_installer_directory }}/stage/cvu/cvu_prereq.xml"
 
 - name: run installer
-  shell: "{{ oracle_database_installer }} -silent -waitforcompletion -ignoreSysPrereqs -responseFile /tmp/db-install.rsp"
+  shell: "{{ oracle_database_installer_directory }}/runInstaller -silent -waitforcompletion -ignoreSysPrereqs -responseFile /tmp/db-install.rsp"
   args:
     creates: "{{ oracle_database_oracle_home }}/bin/sqlplus"
   become: yes
