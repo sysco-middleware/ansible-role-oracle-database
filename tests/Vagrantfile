@@ -1,22 +1,22 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
+ENV['VAGRANT_DEFAULT_PROVIDER'] = 'virtualbox'
 
 Vagrant.configure(2) do |config|
-  ENV['VAGRANT_DEFAULT_PROVIDER'] = 'virtualbox'
 
-  config.vm.define "test01" do |test01|
-    test01.vm.box = "jeqo/ansible-ol7"
+  config.vm.synced_folder '.', '/vagrant', nfs: true
+  config.vm.synced_folder "/installers/oracle/db/11.2/database/11.2.0.4/", "/srv/files", nfs: true
+  config.vm.network "forwarded_port", guest: 1521, host: 15021
 
-    test01.vm.synced_folder "/home/jeqo/oracle/database/installers/11.2.0.4/", "/srv/files"
+  config.vm.provider "virtualbox" do |vb|
+    vb.cpus = 1
+    vb.memory = "1500"
+  end
 
-    test01.vm.network "forwarded_port", guest: 1521, host: 15021
+  config.vm.define "test01" do |node|
+    node.vm.box = "jeqo/ansible-centos7"
 
-    test01.vm.provider "virtualbox" do |vb|
-      vb.cpus = 1
-      vb.memory = "1500"
-    end
-
-    test01.vm.provision "ansible" do |ansible|
+    node.vm.provision "ansible" do |ansible|
       ansible.playbook = "main.yml"
       ansible.galaxy_role_file = "roles.yml"
     end
