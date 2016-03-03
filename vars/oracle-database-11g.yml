@@ -1,4 +1,4 @@
-packages_list:
+oracle_database_packages_list:
   - compat-libcap1
   - gcc
   - gcc-c++

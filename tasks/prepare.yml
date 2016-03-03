@@ -4,7 +4,7 @@
 
 - name: Install required libraries
   yum: name={{ item }} state=present
-  with_items: "{{ oracle_database_required_libs }}"
+  with_items: "{{ oracle_database_packages_list }}"
 
 - name: Disable SELinux
   selinux: state=disabled
