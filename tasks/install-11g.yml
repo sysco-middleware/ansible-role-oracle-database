@@ -6,7 +6,7 @@
   shell: "sed -i -e 's/<RUNLEVEL>/<RUNLEVEL SEVERITY=\"IGNORABLE\">/g' /tmp/database/stage/cvu/cvu_prereq.xml"
 
 - name: run installer
-  shell: "/tmp/database/runInstaller -silent -waitforcompletion -ignoreSysPrereqs -responseFile /tmp/db-install.rsp"
+  shell: "{{ oracle_database_installer }} -silent -waitforcompletion -ignoreSysPrereqs -responseFile /tmp/db-install.rsp"
   args:
     creates: "{{ oracle_database_oracle_home }}/bin/sqlplus"
   become: yes
