@@ -50,12 +50,12 @@ oracle_database_kernel_params:
   net.ipv4.ip_local_port_range: 9000 65500
 
 # Oracle user limits
-oracle_database_soft_no_file: 4096
-oracle_database_hard_no_file: 65536
-oracle_database_soft_nproc: 2047
-oracle_database_hard_nproc: 16384
-oracle_database_soft_stack: 10240
-oracle_database_hard_stack: 32768
+oracle_database_limits_soft_no_file: 4096
+oracle_database_limits_hard_no_file: 65536
+oracle_database_limits_soft_nproc: 2047
+oracle_database_limits_hard_nproc: 16384
+oracle_database_limits_soft_stack: 10240
+oracle_database_limits_hard_stack: 32768
 # mem lock 90% of RAM
-oracle_database_soft_memlock: 1887437
-oracle_database_hard_memlock: 1887437
+oracle_database_limits_soft_memlock: 1887437
+oracle_database_limits_hard_memlock: 1887437
