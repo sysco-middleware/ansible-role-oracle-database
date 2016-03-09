@@ -1,0 +1,64 @@
+---
+# ==> Configure Linux
+- include_vars: "oracle-database-{{ oracle_database_version }}.yml"
+
+- name: Install required libraries
+  yum: name={{ item }} state=present
+  with_items: "{{ oracle_database_packages_list }}"
+
+- name: Disable SELinux
+  selinux: state=disabled
+
+- name: Disable Firewall Deamon (firewalld)
+  service: name=firewalld state=stopped enabled=no  
+  ignore_errors: yes
+
+
+- name: Change kernel parameters
+  sysctl: name="{{ item.key }}" value="{{ item.value }}" state=present
+  with_dict: oracle_database_kernel_params
+
+# ==> Create users and groups
+- name: Create groups
+  group: name={{ oracle_database_install_group }} state=present
+
+- name: add extra groups
+  group: name={{ item }} state=present
+  with_items: "{{ oracle_database_extra_groups }}"
+
+- name: Create user
+  user: name={{ oracle_database_user }} group={{ oracle_database_install_group }}
+
+- name: Add extra groups
+  user: name={{ oracle_database_user }} groups={{ item }} append=yes
+  with_items: "{{ oracle_database_extra_groups }}"
+
+# ==> Add limits for oracle user
+- name: Add oracle user limits
+  lineinfile: dest=/etc/security/limits.conf line='{{ oracle_database_user }} {{ item.limit }} {{ item.type}} {{ item.value }}'
+  with_items:
+    - { limit: 'soft', type: nofile, value: '{{ oracle_database_limits_soft_no_file }}' }
+    - { limit: 'hard', type: nofile, value: '{{ oracle_database_limits_hard_no_file }}' }
+    - { limit: 'soft', type: nproc, value: '{{ oracle_database_limits_soft_nproc }}' }
+    - { limit: 'hard', type: nproc, value: '{{ oracle_database_limits_hard_nproc }}' }
+    - { limit: 'soft', type: stack, value: '{{ oracle_database_limits_soft_stack }}' }
+    - { limit: 'hard', type: stack, value: '{{ oracle_database_limits_hard_stack }}' }
+    - { limit: 'soft', type: memlock, value: '{{ oracle_database_limits_soft_memlock }}' }
+    - { limit: 'hard', type: memlock, value: '{{ oracle_database_limits_hard_memlock }}' }
+
+# ==> Create Base directories
+- name: Create Oracle Base directory
+  file: state=directory path={{ oracle_database_oracle_base }} owner={{ oracle_database_user }} group={{ oracle_database_install_group }}
+
+# ==> Disable transparent hugepages
+#- name: Copy script
+#  copy: src=disable_trans_hugepages.sh dest='~/disable_trans_hugepages.sh' mode=755
+
+#- name: Disable Transparent Huge Pages
+#  shell: '~/disable_trans_hugepages.sh'
+
+# ==> Configure huge pages
+#- name: configure kernel for hugepages
+#  sysctl: name="vm.nr_hugepages" value="{{ hugepages_nr }}" state=present
+#  tags:
+#    - hugepages

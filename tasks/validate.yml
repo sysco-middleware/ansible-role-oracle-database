@@ -1,0 +1,12 @@
+- name: validate oracle database is already installed
+  stat: path="{{ oracle_database_oracle_home }}/bin/sqlplus"
+  register: sqlplus
+  become: yes
+
+- debug:
+    msg: "oracle database is already installed here: {{ oracle_database_oracle_home }}"
+  when: sqlplus.stat.exists
+
+- set_fact:
+    oracle_database_already_installed: yes
+  when: sqlplus.stat.exists

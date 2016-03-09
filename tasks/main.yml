@@ -1,29 +1,23 @@
 ---
 # tasks file for oracle-database
+- include: validate.yml
+  when: not oracle_database_already_installed
+
+- include: prepare-OracleLinux.yml
+  become: yes
+  when: ansible_distribution == 'OracleLinux' and not oracle_database_already_installed
+
+- include: prepare.yml
+  become: yes
+  when: ansible_distribution != 'OracleLinux' and not oracle_database_already_installed
+
 - name: install oracle database
-  include: install-db.yml
+  include: install-{{ oracle_database_version }}.yml
+  become: yes
+  become_user: "{{ oracle_database_user }}"
+  when: not oracle_database_already_installed
+
+- name: post-install scripts as root
+  include: postinstall-{{ oracle_database_version }}.yml
   become: yes
   become_user: root
-  tags:
-    - installdatabase
-
-- name: create listener oracle database
-  include: create-listener.yml
-  become: yes
-  become_user: oracle
-  tags:
-    - createlistener
-
-- name: configure instance oracle database
-  include: create-instance.yml
-  become: yes
-  become_user: oracle
-  tags:
-    - createinstance
-
-- name: configure instance service
-  include: configure-instance-service.yml
-  become: yes
-  become_user: root
-  tags:
-    - configureservice

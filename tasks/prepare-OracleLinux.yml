@@ -1,0 +1,14 @@
+---
+#
+- name: install pre-installation package
+  yum: name=oracle-rdbms-server-11gR2-preinstall
+
+- file:
+    path: "{{ item }}"
+    state: directory
+    owner: oracle
+    group: oinstall
+  with_items:
+    - "{{ oracle_database_inventory_location }}"
+    - "{{ oracle_database_oracle_base }}"
+    - "{{ oracle_database_oracle_home }}"

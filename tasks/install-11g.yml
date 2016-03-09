@@ -1,0 +1,36 @@
+---
+- name: preparing database installation template
+  template: src=db-install-11g.rsp.j2 dest=/tmp/db-install.rsp
+
+#- name: update required pre-requisites
+#  shell: "sed -i -e 's/<RUNLEVEL>/<RUNLEVEL SEVERITY=\"IGNORABLE\">/g' {{ oracle_database_installer_directory }}/stage/cvu/cvu_prereq.xml"
+
+- name: run installer
+  shell: "{{ oracle_database_installer_directory }}/runInstaller -silent -waitforcompletion -ignoreSysPrereqs -responseFile /tmp/db-install.rsp"
+  args:
+    creates: "{{ oracle_database_oracle_home }}/bin/sqlplus"
+  become: yes
+  become_user: oracle
+  register: command_result
+  failed_when: "'Successfully Setup Software.' not in command_result.stdout_lines"
+
+- name: installation results
+  debug:
+    var: command_result
+
+- name: set oracle home
+  lineinfile:
+   dest: "/home/oracle/.bash_profile"
+   regexp: "{{ item.regexp }}"
+   line: "{{ item.line }}"
+   insertbefore: "export PATH"
+  with_items:
+    -
+      regexp: ^ORACLE_HOME=
+      line: "ORACLE_HOME={{ oracle_database_oracle_home }}"
+    -
+      regexp: PATH=\$ORACLE_HOME/bin
+      line: PATH=$ORACLE_HOME/bin:$PATH
+    -
+      regexp: ^export ORACLE_HOME
+      line: export ORACLE_HOME

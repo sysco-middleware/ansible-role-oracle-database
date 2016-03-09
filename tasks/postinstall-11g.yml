@@ -1,0 +1,6 @@
+
+- name: run post-installation scripts as root
+  shell: "{{item}}"
+  with_items:
+    - "{{ oracle_database_inventory_location }}/orainstRoot.sh"
+    - "{{ oracle_database_oracle_home }}/root.sh"

@@ -1,3 +1,6 @@
 # Install a role from the Ansible Galaxy
 - src: https://github.com/jeqo/ansible-role-oracle-database
   name: oracle-database
+
+- src: https://github.com/jeqo/ansible-role-nfs
+  name: nfs
