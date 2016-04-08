@@ -3,6 +3,9 @@
 - include: validate.yml
   when: not oracle_database_already_installed
 
+- debug:
+    msg: "OS Family: {{ ansible_distribution }}"
+
 - include: prepare-OracleLinux.yml
   become: yes
   when: ansible_distribution == 'OracleLinux' and not oracle_database_already_installed

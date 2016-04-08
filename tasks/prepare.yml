@@ -1,28 +1,23 @@
 ---
-# ==> Configure Linux
 - include_vars: "oracle-database-{{ oracle_database_version }}.yml"
 
 - name: install required libraries
   yum: name={{ item }} state=present
   with_items: "{{ oracle_database_packages_list }}"
 
-#- name: install packages
-#  yum:
-#    name: "{{ item }}"
-#    state: present
-#  with_items:
-#    - libselinux-python
-
-#- name: disable selinux
-#  selinux: state=disabled
+- name: disable selinux
+  selinux: state=disabled
+  ignore_errors: yes
 
 - name: disable firewall deamon (firewalld)
   service: name=firewalld state=stopped enabled=no
   ignore_errors: yes
 
-
 - name: change kernel parameters
-  sysctl: name="{{ item.key }}" value="{{ item.value }}" state=present
+  sysctl:
+    name: "{{ item.key }}"
+    value: "{{ item.value }}"
+    state: present
   with_dict: oracle_database_kernel_params
 
 - name: create groups
@@ -40,7 +35,9 @@
   with_items: "{{ oracle_database_extra_groups }}"
 
 - name: add oracle user limits
-  lineinfile: dest=/etc/security/limits.conf line='{{ oracle_database_user }} {{ item.limit }} {{ item.type}} {{ item.value }}'
+  lineinfile:
+    dest: /etc/security/limits.conf
+    line: "{{ oracle_database_user }} {{ item.limit }} {{ item.type}} {{ item.value }}"
   with_items:
     - { limit: 'soft', type: nofile, value: '{{ oracle_database_limits_soft_no_file }}' }
     - { limit: 'hard', type: nofile, value: '{{ oracle_database_limits_hard_no_file }}' }
@@ -51,5 +48,9 @@
     - { limit: 'soft', type: memlock, value: '{{ oracle_database_limits_soft_memlock }}' }
     - { limit: 'hard', type: memlock, value: '{{ oracle_database_limits_hard_memlock }}' }
 
-- name: Create Oracle Base directory
-  file: state=directory path={{ oracle_database_oracle_base }} owner={{ oracle_database_user }} group={{ oracle_database_install_group }}
+- name: create oracle base directory
+  file:
+    state: directory
+    path: "{{ oracle_database_oracle_base }}"
+    owner: "{{ oracle_database_user }}"
+    group: "{{ oracle_database_install_group }}"
