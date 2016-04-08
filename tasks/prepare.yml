@@ -6,15 +6,15 @@
   yum: name={{ item }} state=present
   with_items: "{{ oracle_database_packages_list }}"
 
-- name: install packages
-  yum:
-    name: "{{ item }}"
-    state: present
-  with_items:
-    - libselinux-python
+#- name: install packages
+#  yum:
+#    name: "{{ item }}"
+#    state: present
+#  with_items:
+#    - libselinux-python
 
-- name: disable selinux
-  selinux: state=disabled
+#- name: disable selinux
+#  selinux: state=disabled
 
 - name: disable firewall deamon (firewalld)
   service: name=firewalld state=stopped enabled=no
