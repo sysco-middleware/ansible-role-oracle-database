@@ -5,6 +5,8 @@ ENV['VAGRANT_DEFAULT_PROVIDER'] = 'virtualbox'
 Vagrant.configure(2) do |config|
   config.vm.network "private_network", ip: "10.0.0.5"
 
+  config.vm.synced_folder "/installers/oracle/db/11.2/database/11.2.0.4", "/srv/files"
+
   config.vm.provider "virtualbox" do |vb|
     vb.cpus = 1
     vb.memory = "1500"
