@@ -14,11 +14,11 @@
   become: yes
   when: ansible_distribution != 'OracleLinux' and not oracle_database_already_installed
 
-- include: install-{{ oracle_database_version }}.yml
+- include: install.yml
   become: yes
   become_user: "{{ oracle_database_user }}"
   when: not oracle_database_already_installed
 
-- include: postinstall-{{ oracle_database_version }}.yml
+- include: postinstall.yml
   become: yes
   become_user: root

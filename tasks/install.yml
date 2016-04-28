@@ -1,6 +1,6 @@
 ---
 - name: preparing database installation template
-  template: src=db-install-11g.rsp.j2 dest=/tmp/db-install.rsp
+  template: src=db-install-{{ oracle_database_version }}.rsp.j2 dest=/tmp/db-install.rsp
 
 #- name: update required pre-requisites
 #  shell: "sed -i -e 's/<RUNLEVEL>/<RUNLEVEL SEVERITY=\"IGNORABLE\">/g' {{ oracle_database_installer_directory }}/stage/cvu/cvu_prereq.xml"

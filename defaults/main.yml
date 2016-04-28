@@ -1,7 +1,7 @@
 ---
 # defaults file for oracle-database
 # installation variables
-oracle_database_version: 11g # supported versions: [11g]
+oracle_database_version: 11g # supported versions: [11g, 12c]
 oracle_database_edition: SE # supported editions: [SE,EE]
 # installers
 oracle_database_installer_directory: /srv/files/database

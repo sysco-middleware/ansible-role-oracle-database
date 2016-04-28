@@ -1,5 +1,5 @@
 ---
-- include_vars: "oracle-database-{{ oracle_database_version }}.yml"
+- include_vars: "oracle-database.yml"
 
 - name: install required libraries
   yum: name={{ item }} state=present
