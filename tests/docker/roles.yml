@@ -1,0 +1,4 @@
+# Install a role from the Ansible Galaxy
+- src: https://github.com/sysco-middleware/ansible-role-oracle-database
+  name: sysco-middleware.oracle-database
+  version: remotes/origin/develop
