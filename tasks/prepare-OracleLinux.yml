@@ -2,6 +2,11 @@
 #
 - name: install pre-installation package
   yum: name=oracle-rdbms-server-11gR2-preinstall
+  when: oracle_database_version == "11g"
+
+- name: install pre-installation package
+  yum: name=oracle-rdbms-server-12cR1-preinstall
+  when: oracle_database_version == "12c"
 
 - file:
     path: "{{ item }}"

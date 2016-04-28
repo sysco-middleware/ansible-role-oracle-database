@@ -1,0 +1,26 @@
+- hosts: 127.0.0.1
+  connection: local
+  vars_files:
+    - vars/main.yml
+  tasks:
+    - name: create container
+      docker:
+        name: test-oracle-database-11.2
+        image: "{{ base_image }}"
+        command: sleep infinity
+        volumes:
+          - "/installers/oracle/db/11.2/database/11.2.0.4:/srv/files"
+        state: started
+
+    - add_host:
+        name: test-oracle-database-11.2
+        groups: docker
+        ansible_connection: docker
+
+- hosts: test-oracle-database-11.2
+  connection: docker
+  roles:
+    - role: sysco-middleware.oracle-database
+      oracle_database_version: 11g
+      oracle_database_edition: SE
+      oracle_database_installer: /srv/files/database/runInstaller
